@@ -54,7 +54,7 @@ public class ProduitServiceImplTest {
 	} 
 	
 	 @Test 
-	    public void retrieveallProductTest() {
+	    public void retrieveaallProductTest() {
 	    	when(produitRepository.findAll()).thenReturn(Stream
 	    			.of(produit1,produit2)
 	    			.collect(Collectors.toList()));
