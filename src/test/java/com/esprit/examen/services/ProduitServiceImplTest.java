@@ -1,5 +1,4 @@
 package com.esprit.examen.services;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +21,8 @@ import com.esprit.examen.entities.Produit;
 import com.esprit.examen.repositories.ProduitRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TpAchatProjectApplication.class)
+@SpringBootTest(classes = TpAchatProjectApplication.class) 
+
 public class ProduitServiceImplTest { 
 	
 
@@ -54,7 +54,7 @@ public class ProduitServiceImplTest {
 	} 
 	
 	 @Test 
-	    public void retrieveAllProductTest() {
+	    public void retrieveallProductTest() {
 	    	when(produitRepository.findAll()).thenReturn(Stream
 	    			.of(produit1,produit2)
 	    			.collect(Collectors.toList()));
