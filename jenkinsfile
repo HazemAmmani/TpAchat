@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git') {
+            steps {
+                echo 'Getting project from Git';
+                 git branch:'hazem',
+                 url: 'https://github.com/hazemAm28/TpAchat.git'
+            }
+        }
+         stage('Mvn clean') {
+            steps {
+                sh 'mvn clean'
+            }
+        }
+         stage('Mvn compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        
+         stage('Mvn Junit') {
+            steps {
+                echo 'MVN test'
+               
+            }
+        }
+         
+     stage('Mvn sonar') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
+                step([$class: 'JacocoPublisher', 
+      execPattern: 'target/*.exec',
+      classPattern: 'target/classes',
+      sourcePattern: 'src/hazem/java',
+      exclusionPattern: 'src/test*'
+        ])
+            }
+        }
+       
+    }    
+   
+}
