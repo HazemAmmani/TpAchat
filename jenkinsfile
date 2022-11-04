@@ -8,6 +8,16 @@ pipeline {
                 url: 'https://github.com/hazemAm28/TpAchat.git'
             }
         }
+        stage('Mvn clean') {
+            steps {
+                sh 'mvn clean'
+            }
+        }
+         stage('Mvn compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
         
     }
 }
