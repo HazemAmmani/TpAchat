@@ -58,6 +58,8 @@ public class FactureServiceImplTest {
 		assertEquals(facture1, factureService.retrieveFacture(facture1.getIdFacture()));
 		System.out.println("RetrieveFacture works !");
 	}
+	
+	
 
 	
 }
