@@ -21,7 +21,7 @@ pipeline {
         }
          stage('Mvn Junit') {
             steps {
-                echo 'MVN test'   
+                sh 'mvn test'   
             }
         }
 }
