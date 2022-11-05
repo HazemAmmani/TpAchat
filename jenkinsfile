@@ -4,20 +4,21 @@ pipeline {
     stages {
         stage('Git Cloning') {
             steps {
-                git branch:'Asma',
+                echo 'Getting project from Git';
+                git branch: 'Asma',
                 url: 'https://github.com/hazemAm28/TpAchat.git'
             }
         }
-        stage('Mvn clean') {
+        stage('Clean Project') {
             steps {
                 sh 'mvn clean'
             }
         }
-         stage('Mvn compile') {
+        stage('Compile Project') {
             steps {
                 sh 'mvn compile'
             }
         }
-        
-    }
+       
+    }    
 }
