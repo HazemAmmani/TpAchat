@@ -5,7 +5,7 @@ pipeline {
         stage('Git') {
             steps {
                 echo 'Getting project from Git';
-                 git branch:'Asma',
+                 git branch:'Fedi',
                  url: 'https://github.com/hazemAm28/TpAchat.git'
             }
         }
