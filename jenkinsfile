@@ -22,19 +22,18 @@ pipeline {
         
          stage('Mvn Junit') {
             steps {
-                echo 'MVN test'
-               
+                sh 'mvn test'  
             }
-            Stage ('clean and packaging')
-                {
-                    steps {
-                    sh "mvn clean package "
-                          }
-                }
+          stage('clean and package') {
+            
+            steps {
+                sh 'mvn clean package'  
+            }
+            
          
     // stage('Mvn sonar') {
          //   steps {
-               // sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
+               // sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                // step([$class: 'JacocoPublisher', 
     //  execPattern: 'target/*.exec',
     // classPattern: 'target/classes',
