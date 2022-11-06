@@ -25,7 +25,7 @@ pipeline {
                 echo 'MVN test'
                
             }
-            Stage (“clean et packaging”)
+            Stage ('clean et packaging')
                 {
                     steps {
                     sh "mvn clean package "
