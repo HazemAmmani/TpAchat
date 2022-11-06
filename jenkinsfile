@@ -5,7 +5,7 @@ pipeline {
         stage('Git') {
             steps {
                 echo 'Getting project from Git';
-                 git branch:'hazem',
+                 git branch:'Abdelhamid',
                  url: 'https://github.com/hazemAm28/TpAchat.git'
             }
         }
@@ -25,7 +25,12 @@ pipeline {
                 echo 'MVN test'
                
             }
-        }
+            Stage (“clean et packaging”)
+                {
+                    steps {
+                    sh "mvn clean package "
+                          }
+                }
          
     // stage('Mvn sonar') {
          //   steps {
