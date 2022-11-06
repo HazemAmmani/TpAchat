@@ -1,115 +1,47 @@
-
 pipeline {
     agent any
     tools {
-        maven 'Maven 3.3.9'
-        jdk 'JAVA_HOME'
+       Install the Maven version configured as "M3" and add it to the path.
+      maven "M2_HOME"
     }
+
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
-        }
         stage('Git') {
-           steps {
+            steps {
                 echo 'Getting project from Git';
                  git branch:'Abdelhamid',
                  url: 'https://github.com/hazemAm28/TpAchat.git'
            }
         }
-
-        stage ('Build') {
+        
+        
+         stage('Mvn clean') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
+                sh 'mvn clean'
             }
         }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//pipeline {
-   // agent any
-   // tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-    //    maven "M2_HOME"
-  //  }
-
-   // stages {
-     //   stage('Git') {
-       //     steps {
-          //      echo 'Getting project from Git';
-         //        git branch:'Abdelhamid',
-          //       url: 'https://github.com/hazemAm28/TpAchat.git'
-        //    }
-       // }
+         stage('Mvn compile') {
+            steps {
+                sh 'mvn compile'
+          }
+        }
         
-        
-         //stage('Mvn clean') {
-           // steps {
-            //    sh 'mvn clean'
-           // }
-       // }
-      //   stage('Mvn compile') {
-         //   steps {
-           //     sh 'mvn compile'
-        //   }
-        //}
-        
-        // stage('Mvn Junit') {
-          //  steps {
-            //    sh 'javac -cp <junit-4.13.jar>;. org.junit.runner.JUnitCore OperateurServiceImplTest.java'
-             //   sh 'mvn test'  
-              //  }
-           // }
-        //  stage('clean and package') {
+         stage('Mvn Junit') {
+            steps {
+               sh 'javac -cp <junit-4.13.jar>;. org.junit.runner.JUnitCore OperateurServiceImplTest.java'
+                sh 'mvn test'  
+                }
+            }
+          stage('clean and package') {
             
-          //  steps {
-           //     sh 'mvn clean package'  
-           // }
-           // }
+            steps {
+                sh 'mvn clean package'  
+            }
+            }
             
          
     
        
-   // }    
+    }    
    
-//}
+}
