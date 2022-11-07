@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Test Project') {
             steps {
-                sh 'cd /var/lib/jenkins/workspace/TpAchat'
+                //sh 'cd /var/lib/jenkins/workspace/TpAchat'
                 sh 'mvn test'   
             }
         }
