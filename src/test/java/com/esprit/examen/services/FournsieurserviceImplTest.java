@@ -22,7 +22,6 @@ import com.esprit.examen.repositories.FournisseurRepository;
 
 
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TpAchatProjectApplication.class)
 
