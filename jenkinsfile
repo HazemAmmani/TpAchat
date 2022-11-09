@@ -29,11 +29,7 @@ pipeline {
                 sh 'mvn test'  
                 }
             }
-         stage('NEXUS'){
-            steps{
-                sh 'mvn deploy -DskipStaging=true'
-            }
-        }
+
           stage('clean and package') {
             
             steps {
@@ -41,6 +37,12 @@ pipeline {
             }
      
             }
+         stage('NEXUS'){
+            steps{
+                sh 'mvn deploy -DskipStaging=true'
+            }
+        }
+         
             
          
     
