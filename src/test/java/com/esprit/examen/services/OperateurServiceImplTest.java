@@ -7,36 +7,41 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.esprit.examen.TpAchatProjectApplication;
 import com.esprit.examen.entities.Operateur;
 import com.esprit.examen.repositories.OperateurRepository;
 
 
 
-@SpringBootTest
+@SpringBootTest(classes= TpAchatProjectApplication.class)
+@RunWith(MockitoJUnitRunner.class)
+
 public class OperateurServiceImplTest {
 	
 	
 	
 	@Mock
-	private OperateurRepository operateurRepository;
+  OperateurRepository operateurRepository;
 	
 	Operateur operateur1 = new Operateur(1L,"test1","tes1","546125",null);
 	 Operateur operateur2 = new Operateur(2L,"test2","test2","546125",null);
 	@InjectMocks
-		IOperateurService operateurService;
+		OperateurServiceImpl operateurService;
 	
 	
 	 
 	
-	 @BeforeEach
-	    void setMockOutput() {
-		 when(operateurRepository.save(operateur1)).thenReturn(operateur1);
-	    }
+//	 @BeforeEach
+//	    void setMockOutput() {
+//		 when(operateurRepository.save(operateur1)).thenReturn(operateur1);
+//	    }
 	
 	 
 	
@@ -52,7 +57,7 @@ public class OperateurServiceImplTest {
 	  @Test
 	  @Order(1)
 		public void addOperateurTest() {
-	   
+		  when(operateurRepository.save(operateur1)).thenReturn(operateur1);
     	assertNotNull(operateur1);
    	
    	Operateur persisted = operateurService.addOperateur(operateur1);
