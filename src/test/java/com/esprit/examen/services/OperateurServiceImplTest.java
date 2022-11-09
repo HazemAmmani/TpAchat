@@ -1,79 +1,88 @@
 package com.esprit.examen.services;
+//import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.esprit.examen.TpAchatProjectApplication;
 import com.esprit.examen.entities.Operateur;
 import com.esprit.examen.repositories.OperateurRepository;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import com.esprit.examen.entities.Produit;
+import com.esprit.examen.repositories.ProduitRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@SpringBootTest(classes = Produit.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+
+class ProduitServiceImplTest {
+	@Mock
+	OperateurRepository operateurRepository;
+
+	@InjectMocks
+	OperateurServiceImpl operateurServiceService;
 
 
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+	List<Operateur> list = new ArrayList<Operateur>() {
 
+		{
+			add(new Operateur());
+			add(new Operateur());
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = TpAchatProjectApplication.class)
-
-
- class OperateurServiceImplTest {
-
-	@MockBean
-	private OperateurRepository operateurRepository;
-	private Operateur operateur1 = new Operateur(1L,"test1","tes1","546125",null);
-	private Operateur operateur2 = new Operateur(2L,"test2","test2","546125",null);
-
-	@Autowired
-	IOperateurService operateurService;
-	
-	  @Test
-		public void addOperateurTest() {
-	    	when(operateurRepository.save(operateur1)).thenReturn(operateur1);
-	    	assertNotNull(operateur1);
-	    	
-	    	Operateur persisted = operateurService.addOperateur(operateur1);
-			assertEquals(operateur1, persisted); 
-	    	
-			System.out.println("add operators works !");
 		}
-	
-	 @Test 
-	    public void retrieveAllOperateursTest() {
-	    	when(operateurRepository.findAll()).thenReturn(Stream
-	    			.of(operateur1,operateur2)
-	    			.collect(Collectors.toList()));
-	    	
-	    	assertEquals(2,operateurService.retrieveAllOperateurs().size());
-	    	System.out.println("Retrieve all operators works !");
-	    }
-	
-	   @Test 
-	    public void UpdateOperateurTest() {
-	    	when(operateurRepository.save(operateur1)).thenReturn(operateur1);
-	    	assertNotNull(operateur1);
-	    	assertEquals(operateur1, operateurService.updateOperateur(operateur1));
-	    	System.out.println("Update operators works!");
-	    }
-	    
-	    @Test
-	    public void retrieveOperateurTest() {
-	    	when(operateurRepository.findById(operateur1.getIdOperateur())).thenReturn(Optional.of(operateur1));
-	    	assertEquals(operateur1, operateurService.retrieveOperateur(operateur1.getIdOperateur()));
-	    	System.out.println("Retrieve operator by id works !");
-	    }
-	
+	};
+
+	@Test
+	void  getAllOperaeurTest()
+	{
+		List<Operateur> Operqteurlist = new ArrayList<Operateur>() {
+
+			{
+
+				add (new Operateur(1L,"test1","tes1","5425",null));
+				add (new Operateur(1L,"test11","tes12","56125",null));
+				add (new Operateur(1L,"test12","tes11","56125",null));
+
+			}};
+
+		assertTrue(Operqteurlist.size()>0);
+		Mockito.when(operateurServiceService.retrieveAllOperateurs()).thenReturn(Operqteurlist);
+		List<Operateur> factureList = operateurServiceService.retrieveAllOperateurs();
+	}
+
+
+
+	@Test
+	void test_addOperateur() {
+		Operateur p= new Operateur();
+		p.setIdOperateur(1L);
+		//mock
+		Mockito.when(operateurRepository.save(any())).thenReturn(p);
+
+		//assert
+		assertEquals(1L, p.getIdOperateur());
+	}
+
+	public void delete() {
+
+		Operateur p = operateurRepository.findById(1L).get();
+		operateurRepository.delete(p);
+		operateurServiceService.deleteOperateur(null);
+
+	}
+
+
 
 }
