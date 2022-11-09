@@ -22,22 +22,22 @@ pipeline {
         stage('Test Project') {
             steps {
                 //sh 'cd /var/lib/jenkins/workspace/TpAchat'
-                sh 'mvn clean test'   
+                sh 'mvn test'   
             }
         }
         stage('Sonarqube') {
             steps {
-                sh 'mvn clean sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
-            }
-        }
-        stage('Package') {
-            steps {
-                sh 'mvn clean package'  
+                sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
             }
         }
         stage('Nexus'){
             steps{
                 sh 'mvn deploy -DskipStaging=true'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn clean package'  
             }
         }
     }    
