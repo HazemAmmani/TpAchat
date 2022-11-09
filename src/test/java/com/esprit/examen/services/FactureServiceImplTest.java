@@ -11,26 +11,26 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.esprit.examen.TpAchatProjectApplication;
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.repositories.FactureRepository;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = TpAchatProjectApplication.class)
+@RunWith(MockitoJUnitRunner.class)
 public class FactureServiceImplTest {
 
-	@MockBean
+	@Mock
 	private FactureRepository factureRepository;
 	private Facture facture1 = new Facture(1L, 15F, 100F, new Date(), new Date(), true, null, null, null);
 	private Facture facture2 = new Facture(2L, 5F, 50F, new Date(), new Date(), true, null, null, null);
 
-	@Autowired
-	IFactureService factureService;
+	@InjectMocks
+	FactureServiceImpl factureService;
 
 	@Test
 	public void addFactureTest() {
