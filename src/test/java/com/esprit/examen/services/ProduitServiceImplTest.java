@@ -1,83 +1,83 @@
 package com.esprit.examen.services;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+//import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.esprit.examen.TpAchatProjectApplication;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import com.esprit.examen.entities.Produit;
 import com.esprit.examen.repositories.ProduitRepository;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = TpAchatProjectApplication.class) 
+import lombok.extern.slf4j.Slf4j;
 
-public class ProduitServiceImplTest { 
-	
+@Slf4j
+@SpringBootTest(classes = Produit.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 
-	public ProduitServiceImplTest() {
-		// TODO Auto-generated constructor stub
-	} 
-	@Autowired
-	IProduitService produitService;
-	DateFormat df = new SimpleDateFormat("MM-dd-yyyy"); 
-	
-	
-    @MockBean
-    private ProduitRepository produitRepository;
-    private Produit produit1 = new Produit(null,"777434","libbPorduit", 10, new Date(), new Date(),null,null,null);
-    private Produit produit2 = new Produit(null,"777434","libbPorduit", 10, new Date(), new Date(),null,null,null);
-	
-	
-	
-	
-	@Test 
-	public void addProductTest() {
-    	when(produitRepository.save(produit1)).thenReturn(produit1);
-    	assertNotNull(produit1);
-    	
-    	Produit persisted = produitService.addProduit(produit1);
-		assertEquals(produit1, persisted); 
-    	
-		System.out.println("add product works !");
-	} 
-	
-	 @Test 
-	    public void retrieveaallProductTest() {
-	    	when(produitRepository.findAll()).thenReturn(Stream
-	    			.of(produit1,produit2)
-	    			.collect(Collectors.toList()));
-	    	
-	    	assertEquals(2,produitService.retrieveAllProduits().size());
-	    	System.out.println("Retrieve all Produit works !");
-	    }
-	
-	   @Test 
-	    public void UpdateProductTest() {
-	    	when(produitRepository.save(produit1)).thenReturn(produit1);
-	    	assertNotNull(produit1);
-	    	assertEquals(produit1, produitService.updateProduit(produit1));
-	    	System.out.println("Update produit works!");
-	    }
-	    
-	    @Test
-	    public void retrieveProductTest() {
-	    	when(produitRepository.findById(produit1.getIdProduit())).thenReturn(Optional.of(produit1));
-	    	assertEquals(produit1, produitService.retrieveProduit(produit1.getIdProduit()));
-	    	System.out.println("Retrieve product by id works !");
-	    }
+class ProduitServiceImplTest {
+    @Mock
+    ProduitRepository produitRepository;
 
-	
+    @InjectMocks
+    ProduitServiceImpl produitServiceService;
+
+
+
+    List<Produit> list = new ArrayList<Produit>() {
+
+        {
+            add(new Produit());
+            add(new Produit());
+
+        }
+    };
+
+    @Test
+void  getAllProduitTest()
+    {
+        List<Produit> Produitlist = new ArrayList<Produit>() {
+
+            {
+                add(new Produit(3L, null, null, 1900, null, null, null));
+                add(new Produit(5L, null, null, 1600, null, null, null));
+                add(new Produit(8L, null, null, 1590, null, null, null));
+            }};
+
+        assertTrue(Produitlist.size()>0);
+        Mockito.when(produitServiceService.retrieveAllProduits()).thenReturn(Produitlist);
+        List<Produit> factureList = produitServiceService.retrieveAllProduits();
+    }
+
+
+
+    @Test
+    void test_addProduit() {
+        Produit p= new Produit();
+        p.setIdProduit(1L);
+        //mock
+        Mockito.when(produitRepository.save(any())).thenReturn(p);
+
+        //assert
+        assertEquals(1L, p.getIdProduit());
+    }
+
+    public void delete() {
+
+        Produit p = produitRepository.findById(1L).get();
+        produitRepository.delete(p);
+        produitServiceService.deleteProduit(null);
+
+    }
+
+
 
 }
