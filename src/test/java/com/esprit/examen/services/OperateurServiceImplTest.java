@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
@@ -17,6 +18,7 @@ import com.esprit.examen.TpAchatProjectApplication;
 import com.esprit.examen.entities.Operateur;
 import com.esprit.examen.repositories.OperateurRepository;
 
+
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(classes = TpAchatProjectApplication.class)
 
 
-public class OperateurServiceImplTest {
+ class OperateurServiceImplTest {
 
 	@MockBean
 	private OperateurRepository operateurRepository;
