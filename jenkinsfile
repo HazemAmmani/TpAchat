@@ -30,14 +30,14 @@ pipeline {
                 sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
             }
         }
-        stage('Nexus'){
-            steps{
-                sh 'mvn deploy -DskipStaging=true'
-            }
-        }
         stage('Package') {
             steps {
                 sh 'mvn clean package'  
+            }
+        }
+        stage('Nexus'){
+            steps{
+                sh 'mvn deploy -DskipStaging=true'
             }
         }
     }    
