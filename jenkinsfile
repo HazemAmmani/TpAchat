@@ -29,11 +29,17 @@ pipeline {
                 sh 'mvn test'  
                 }
             }
+         stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar  -Dsonar.login=admin -Dsonar.password=nexus'
+            }
+        }
           stage('clean and package') {
             
             steps {
                 sh 'mvn clean package'  
             }
+     
             }
             
          
