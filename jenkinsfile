@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+    }
     stages {
         stage('Git') {
             steps {
@@ -42,6 +44,27 @@ pipeline {
             steps{
                 sh 'mvn deploy -DskipStaging=true'
             }
+        }
+        stage("Building Docker Image") {
+                steps{
+                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/TpAchat .'
+                }
+        }
+        stage("Login to DockerHub") {
+                steps{
+                   // sh 'sudo chmod 666 /var/run/docker.sock'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+                }
+        }
+        stage("Push to DockerHub") {
+                steps{
+                    sh 'docker push $DOCKERHUB_CREDENTIALS_USR/TpAchat'
+                }
+        }
+        stage("Docker-compose") {
+                steps{
+                    sh 'docker-compose up -d'
+                }
         }
 }
 }
