@@ -17,16 +17,30 @@ pipeline {
          stage('Mvn compile') {
             steps {
                 sh 'mvn compile'
+          }
+        }
+         stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar  -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
+        
          stage('Mvn Junit') {
             steps {
-                sh 'mvn test'   
+                sh 'mvn test'  
+                }
             }
-        }
-         stage('Mvn sonar') {
+
+          stage('clean and package') {
+            
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                sh 'mvn clean package'  
+            }
+     
+            }
+         stage('NEXUS'){
+            steps{
+                sh 'mvn deploy -DskipStaging=true'
             }
         }
 }

@@ -3,10 +3,11 @@ package com.esprit.examen.services;
 import java.util.Date;
 import java.util.List;
 
+import com.esprit.examen.dto.ReglementDTO;
 import com.esprit.examen.entities.Reglement;
 
 public interface IReglementService {
-
+	ReglementDTO saveReglement(ReglementDTO r);
 	List<Reglement> retrieveAllReglements();
 	Reglement addReglement(Reglement r);
 	Reglement retrieveReglement(Long id);

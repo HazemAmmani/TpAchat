@@ -1,5 +1,7 @@
 package com.esprit.examen.services;
+
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -12,7 +14,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,20 +29,20 @@ import com.esprit.examen.entities.Facture;
 import com.esprit.examen.entities.Reglement;
 import com.esprit.examen.repositories.ReglementRepository;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = TpAchatProjectApplication.class)
 public class ReglementServiceImplTest {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	
-	
-	private Reglement reglement1=new Reglement((long)1, 21F, 10F, null, null, null);
-	private Reglement reglement2=new Reglement((long)2, 21F, 10F, null, null, null);
-	@MockBean
+
+	private Reglement reglement1 = new Reglement((long) 1, 21F, 10F, null, null, null);
+	private Reglement reglement2 = new Reglement((long) 2, 21F, 10F, null, null, null);
+	@Mock
 	private ReglementRepository reglementrepository;
-	@Autowired
-	IReglementService reglementService;
-	
+	@InjectMocks
+	ReglementServiceImpl reglementService;
+
 	@Test
+	@Order(1)
 	public void addReglement() throws ParseException {
 		Date dateReglement = dateFormat.parse("30/09/2000");
 		reglement1.setDateReglement(dateReglement);
@@ -49,35 +55,38 @@ public class ReglementServiceImplTest {
 
 		System.out.println("AddReglement works !");
 	}
+
 	@Test
-	public void retrieveReglement(){
+	@Order(2)
+	public void retrieveReglement() {
 		when(reglementrepository.findById(reglement1.getIdReglement())).thenReturn(Optional.of(reglement1));
 		assertEquals(reglement1, reglementService.retrieveReglement(reglement1.getIdReglement()));
 		System.out.println("retrieveReglement works !");
 	}
-	
+
 	@Test
+	@Order(3)
 	public void retrieveAllReglements() {
 		when(reglementrepository.findAll()).thenReturn(Stream.of(reglement1, reglement2).collect(Collectors.toList()));
 		assertEquals(2, reglementService.retrieveAllReglements().size());
 		System.out.println("retrieveAllReglements works !");
 	}
 	/*
-	@Test
-	public void retrieveReglementByFacture() {
-		when(reglementrepository.retrieveReglementByFacture(reglement1.getIdReglement())).thenReturn(null);
-		assertEquals(reglement1, reglementService.retrieveReglement(reglement1.getIdReglement()));
-		System.out.println("retrieveReglementByFacture works !");
-	}*/
+	 * @Test public void retrieveReglementByFacture() {
+	 * when(reglementrepository.retrieveReglementByFacture(reglement1.getIdReglement
+	 * ())).thenReturn(null); assertEquals(reglement1,
+	 * reglementService.retrieveReglement(reglement1.getIdReglement()));
+	 * System.out.println("retrieveReglementByFacture works !"); }
+	 */
 	/*
-	@Test
-	public void getChiffreAffaireEntreDeuxDate() throws ParseException {
-		Date date1 = dateFormat.parse("30/08/2000");
-		Date date2 = dateFormat.parse("30/10/2000");
-		when(reglementrepository.getChiffreAffaireEntreDeuxDate(date1, date2)).thenReturn();
-		System.out.println("getChiffreAffaireEntreDeuxDate works !");
-		
-	}
-	*/
-	
+	 * @Test public void getChiffreAffaireEntreDeuxDate() throws ParseException {
+	 * Date date1 = dateFormat.parse("30/08/2000"); Date date2 =
+	 * dateFormat.parse("30/10/2000");
+	 * when(reglementrepository.getChiffreAffaireEntreDeuxDate(date1,
+	 * date2)).thenReturn();
+	 * System.out.println("getChiffreAffaireEntreDeuxDate works !");
+	 * 
+	 * }
+	 */
+
 }
