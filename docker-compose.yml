@@ -4,7 +4,7 @@ services:
        container_name: mysqldb
        image: mysql/mysql-server:8.0
        restart: unless-stopped
-       environement:
+       environment:
         MYSQL_ROOT_PASSWORD: root
        volumes:
           - /home/mysql/data:/var/lib/mysql
