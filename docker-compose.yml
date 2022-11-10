@@ -8,8 +8,8 @@ services:
         - "3307:3306"
       
       backend-container:
-       image: atallahdoc/TpAchat
-       container_name: TpAchat
+       image: atallahdoc/tpachat
+       container_name: tpachat
        restart: on-failure
        environment:
         - spring.datasource.url=jdbc:mysql://mysqldb:3306/achatdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
