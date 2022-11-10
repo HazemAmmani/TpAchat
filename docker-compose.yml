@@ -4,15 +4,15 @@ services:
        container_name: mysqldb
        image: mysql/mysql-server:8.0
        restart: unless-stopped
-       ports:
-        - "3307:3306"
+       environement:
+        MYSQL_ROOT_PASSWORD: root
+       volumes:
+          - /home/mysql/data:/var/lib/mysql
       
       backend-container:
        image: atallahdoc/tpachat
        container_name: tpachatback
        restart: on-failure
-       environment:
-        - spring.datasource.url=jdbc:mysql://mysqldb:3306/TpAchat?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
        ports:
           - 8090:8090
        depends_on:
