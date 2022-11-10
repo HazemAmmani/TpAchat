@@ -4,17 +4,16 @@ services:
        container_name: mysqldb
        image: mysql/mysql-server:8.0
        restart: unless-stopped
-       environment:
-        MYSQL_ROOT_PASSWORD: root
-       volumes:
-          - /home/mysql/data:/var/lib/mysql
+       ports:
+        - "3307:3306"
       
       backend-container:
        image: atallahdoc/tpachat
        container_name: tpachatback
        restart: on-failure
+       
        ports:
-          - 8090:8090
+          - 9090:9090
        depends_on:
           - mysqldb
               
