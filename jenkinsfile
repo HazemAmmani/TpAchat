@@ -30,7 +30,7 @@ pipeline {
         
          stage('Mvn Junit') {
             steps {
-            //   sh 'javac -cp <junit-4.13.jar>;. org.junit.runner.JUnitCore OperateurServiceImplTest.java'
+           
                 sh 'mvn test'  
                 }
             }
