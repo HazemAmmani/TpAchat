@@ -16,7 +16,7 @@ services:
         spring.datasource.username: root
         spring.datasource.password: root
         ports:
-          - "9090:9090"
+          - 9090:9090
        depends_on:
           - mysqldb
               
