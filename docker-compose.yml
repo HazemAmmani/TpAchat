@@ -15,7 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: asmabesbes/tpachat
+    image: atallahdoc/tpachat
     restart: on-failure
     env_file: ./.env
     ports:
