@@ -12,9 +12,9 @@ services:
        container_name: tpachatback
        restart: on-failure
        environment:
-        spring.datasource.url: jdbc:mysql://192.168.100.84:33060/TpAchat?useSSl=false
-        spring.datasource.username: root
-        spring.datasource.password: 
+        spring.datasource.url = jdbc:mysql://192.168.100.84:3306/TpAchat?useSSl=false
+        spring.datasource.username = root
+        
        ports:
          - "9090:8080"
        depends_on:
