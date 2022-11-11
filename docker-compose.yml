@@ -6,7 +6,7 @@ services:
         environment:
           - PMA_ARBITRARY=1
         restart: always
-        port:
+        ports:
           - 8899:80  
       backend-container:
        image: atallahdoc/tpachat
