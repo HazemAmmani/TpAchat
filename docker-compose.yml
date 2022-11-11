@@ -2,7 +2,6 @@ version: "3.3"
 
 services:
   mysqldb:
-    container_name: mysqldb
     image: mysql:5.7
     restart: unless-stopped
     env_file: ./.env
@@ -16,6 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
+    image: fediabdelkebir/tpachat
     restart: on-failure
     env_file: ./.env
     ports:
