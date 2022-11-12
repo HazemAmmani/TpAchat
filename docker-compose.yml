@@ -13,10 +13,10 @@ services:
     volumes:
       - db:/var/lib/mysql
       
-#  web:
-#    image : atallahdoc/tpachatfront
-#    ports:
-#     - "80:80"
+  web:
+    image : atallahdoc/tpachatfront
+    ports:
+    - "80:80"
    
        
   app:
