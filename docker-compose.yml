@@ -12,6 +12,13 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+      
+  web:
+    image : atallahdoc/TpAchatFront
+    ports:
+     - "80:80"
+   
+       
   app:
     depends_on:
       - mysqldb

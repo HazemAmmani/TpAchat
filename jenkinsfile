@@ -6,8 +6,14 @@ pipeline {
 
     stages {
         stage('Git') {
-            steps {
-                echo 'Getting project from Git';
+            
+           steps {
+                echo 'Getting Frontend project from Git';
+                 git branch:'Abdelhamid',
+                 url: 'https://github.com/FediAbdelkebir/devops_front.git'
+           }
+           steps {
+                echo 'Getting Backend project from Git';
                  git branch:'Abdelhamid',
                  url: 'https://github.com/hazemAm28/TpAchat.git'
            }
@@ -49,6 +55,13 @@ pipeline {
                 sh 'mvn deploy -DskipStaging=true'
             }
         }
+        
+        stage("Building Angular image")
+                steps{
+                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/TpAchatFront .'
+                }
+        }
+        
  	stage("Building Docker Image") {
                 steps{
                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/tpachat .'
