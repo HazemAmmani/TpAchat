@@ -50,11 +50,7 @@ pipeline {
             }
         }
         
-        stage("Building Angular image")
-                steps{
-                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/TpAchatFront .'
-                }
-        }
+        
         
  	stage("Building Docker Image") {
                 steps{
