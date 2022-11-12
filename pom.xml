@@ -98,7 +98,14 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 		</dependency>
-	</dependencies>
+	</dependencies> 
+	<distributionManagement>
+		<repository>
+			<id>deploymentRepo</id>
+			<name>Nexus_Devops</name>
+			<url>http://169.254.204.120:8081/repository/Nexus_Devops/</url>
+		</repository>
+	</distributionManagement>
 
 	<build>
 		<plugins>
