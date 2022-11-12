@@ -1,21 +1,18 @@
 package com.esprit.examen.controllers;
 
 
-
-import java.util.List;
-
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.esprit.examen.dto.DtoStock;
 import com.esprit.examen.entities.Stock;
 import com.esprit.examen.services.IStockService;
 
-import io.swagger.annotations.Api;
+import java.util.List;
 
 @RestController
 @Api(tags = "Gestion des stocks")
 @RequestMapping("/stock")
-@CrossOrigin("*")
 public class StockRestController {
 
 	@Autowired
@@ -39,9 +36,9 @@ public class StockRestController {
 	// http://localhost:8089/SpringMVC/stock/add-stock
 	@PostMapping("/add-stock")
 	@ResponseBody
-	public Stock addStock(@RequestBody Stock s) {
-		Stock stock = stockService.addStock(s);
-		return stock;
+	public Stock addStock(@RequestBody DtoStock s) {
+		Stock stock = new Stock(s.getLibelleStock(),s.getQte(),s.getQteMin());
+		return stockService.addStock(stock);
 	}
 
 	// http://localhost:8089/SpringMVC/stock/remove-stock/{stock-id}
@@ -54,9 +51,12 @@ public class StockRestController {
 	// http://localhost:8089/SpringMVC/stock/modify-stock
 	@PutMapping("/modify-stock")
 	@ResponseBody
-	public Stock modifyStock(@RequestBody Stock stock) {
+
+	public Stock modifyStock(@RequestBody DtoStock s) {
+		Stock stock = new Stock(s.getIdStock(),s.getLibelleStock(),s.getQte(),s.getQteMin(),s.getProduits());
 		return stockService.updateStock(stock);
 	}
+
 
 	/*
 	 * Spring Scheduler : Comparer QteMin tolérée (à ne pa dépasser) avec

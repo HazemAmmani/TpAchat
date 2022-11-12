@@ -1,17 +1,16 @@
 package com.esprit.examen.services;
 
-
-import java.util.List;
-import javax.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.esprit.examen.entities.Produit;
 import com.esprit.examen.entities.Stock;
 import com.esprit.examen.repositories.CategorieProduitRepository;
 import com.esprit.examen.repositories.ProduitRepository;
 import com.esprit.examen.repositories.StockRepository;
-import lombok.extern.slf4j.Slf4j;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -62,8 +61,10 @@ public class ProduitServiceImpl implements IProduitService {
 	public void assignProduitToStock(Long idProduit, Long idStock) {
 		Produit produit = produitRepository.findById(idProduit).orElse(null);
 		Stock stock = stockRepository.findById(idStock).orElse(null);
-		produit.setStock(stock);
-		produitRepository.save(produit);
+		if(produit != null) {
+			produit.setStock(stock);
+			produitRepository.save(produit);
+		}
 
 	}
 

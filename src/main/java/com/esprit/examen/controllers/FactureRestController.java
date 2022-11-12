@@ -1,21 +1,20 @@
 package com.esprit.examen.controllers;
 
-import java.util.Date;
-import java.util.List;
-
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import com.esprit.examen.dto.DtoFacture;
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.services.IFactureService;
 
-import io.swagger.annotations.Api;
+import java.util.Date;
+import java.util.List;
 
 
 @RestController
 @Api(tags = "Gestion des factures")
 @RequestMapping("/facture")
-@CrossOrigin("*")
 public class FactureRestController {
 
     @Autowired
@@ -35,13 +34,15 @@ public class FactureRestController {
     public Facture retrieveFacture(@PathVariable("facture-id") Long factureId) {
         return factureService.retrieveFacture(factureId);
     }
+    
+ 
 
     // http://localhost:8089/SpringMVC/facture/add-facture/{fournisseur-id}
     @PostMapping("/add-facture")
     @ResponseBody
-    public Facture addFacture(@RequestBody Facture f) {
-        Facture facture = factureService.addFacture(f);
-        return facture;
+    public Facture addFacture(@RequestBody DtoFacture f) {
+        Facture facture = new Facture(f.getMontantRemise(),f.getMontantFacture(),f.getDateCreationFacture(),f.getDateDerniereModificationFacture(),f.getArchivee());
+        		return	factureService.addFacture(facture);
     }
 
     /*

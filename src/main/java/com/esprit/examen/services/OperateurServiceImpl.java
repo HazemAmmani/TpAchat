@@ -1,17 +1,17 @@
 package com.esprit.examen.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.esprit.examen.entities.Operateur;
 import com.esprit.examen.repositories.OperateurRepository;
 
+import java.util.List;
+
 @Service
 public class OperateurServiceImpl implements IOperateurService {
 
 	@Autowired
-	OperateurRepository  operateurRepository;
+	OperateurRepository operateurRepository;
 	@Override
 	public List<Operateur> retrieveAllOperateurs() {
 		return (List<Operateur>) operateurRepository.findAll();

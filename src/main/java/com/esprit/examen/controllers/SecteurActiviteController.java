@@ -1,18 +1,19 @@
 package com.esprit.examen.controllers;
 
-import java.util.List;
-
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.esprit.examen.dto.DtoOperateur;
+import com.esprit.examen.dto.DtoSecteurActivite;
+import com.esprit.examen.entities.Operateur;
 import com.esprit.examen.entities.SecteurActivite;
 import com.esprit.examen.services.ISecteurActiviteService;
 
-import io.swagger.annotations.Api;
+import java.util.List;
 
 @RestController
 @Api(tags = "Gestion des secteurs activites")
 @RequestMapping("/secteurActivite")
-@CrossOrigin("*")
 public class SecteurActiviteController {
 
 	@Autowired
@@ -36,9 +37,9 @@ public class SecteurActiviteController {
 	// http://localhost:8089/SpringMVC/secteurActivite/add-secteurActivite
 	@PostMapping("/add-secteurActivite")
 	@ResponseBody
-	public SecteurActivite addSecteurActivite(@RequestBody SecteurActivite sa) {
-		SecteurActivite secteurActivite = secteurActiviteService.addSecteurActivite(sa);
-		return secteurActivite;
+	public SecteurActivite addSecteurActivite(@RequestBody DtoSecteurActivite sa) {
+		SecteurActivite secteur = new SecteurActivite(sa.getCodeSecteurActivite(),sa.getLibelleSecteurActivite());
+		return secteurActiviteService.addSecteurActivite(secteur);
 	}
 
 	// http://localhost:8089/SpringMVC/secteurActivite/remove-secteurActivite/{secteurActivite-id}
@@ -51,8 +52,11 @@ public class SecteurActiviteController {
 	// http://localhost:8089/SpringMVC/secteurActivite/modify-secteurActivite
 	@PutMapping("/modify-secteurActivite")
 	@ResponseBody
-	public SecteurActivite modifySecteurActivite(@RequestBody SecteurActivite secteurActivite) {
-		return secteurActiviteService.updateSecteurActivite(secteurActivite);
+
+	public SecteurActivite modifySecteurActivite(@RequestBody DtoSecteurActivite secteurActivite) {
+		SecteurActivite secteur = new SecteurActivite(secteurActivite.getCodeSecteurActivite(),secteurActivite.getLibelleSecteurActivite());
+		return secteurActiviteService.updateSecteurActivite(secteur);
+
 	}
 
 	
