@@ -6,15 +6,7 @@ pipeline {
 
     stages {
         stage('Git') {
-            
-           steps {
-                echo 'Getting Frontend project from Git';
-                 git branch:'Abdelhamid',
-                 url: 'https://github.com/FediAbdelkebir/devops_front.git'
-           }
-           }
-           stage('Git') {
-           steps {
+            steps {
                 echo 'Getting Backend project from Git';
                  git branch:'Abdelhamid',
                  url: 'https://github.com/hazemAm28/TpAchat.git'
