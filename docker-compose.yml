@@ -33,7 +33,7 @@ services:
     stdin_open: true
     tty: true
   web:
-    -image: fediabdelkebir/tpachatfront
+    image: fediabdelkebir/tpachatfront
 
 volumes:
   db:
