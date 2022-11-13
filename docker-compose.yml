@@ -13,6 +13,11 @@ services:
     volumes:
       - db:/var/lib/mysql
       
+      
+  Front:
+    image: atallahdoc/tpachatfront
+      
+      
 
   app:
     depends_on:
