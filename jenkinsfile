@@ -15,7 +15,7 @@ pipeline {
         
         stage('Running sonar and Nexus containers') {
             steps {
-                sh 'sudo chmod 666 /var/run/docker.sock' 
+                
                 sh 'docker start 0769bef2f356 70a5b0c85654 5a3d7472133f 719dbec4e1d3  '
             }
         }
