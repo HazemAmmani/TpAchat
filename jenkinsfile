@@ -74,6 +74,7 @@ pipeline {
                     sh 'docker-compose up --force-recreate -d '
                 }
         }
+    }
         post {
                 success {
                      mail to: "abdelhamid.atallah@esprit.tn",
@@ -91,6 +92,6 @@ pipeline {
          
     
        
-    }    
+        
    
 }
