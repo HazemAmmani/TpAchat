@@ -17,7 +17,7 @@ services:
   Front:
     image: atallahdoc/tpachatfront
     restart: on-failure
-    prots:
+    ports:
       - "80:80"
     depends_on:
       - app  
