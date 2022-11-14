@@ -49,11 +49,11 @@ pipeline {
             }
      
             }
-         //stage('NEXUS'){
-           // steps{
-             //   sh 'mvn deploy -DskipStaging=true'
-            //}
-        //}
+         stage('NEXUS'){
+            steps{
+                sh 'mvn deploy -DskipStaging=true'
+            }
+        }
         
         
         
