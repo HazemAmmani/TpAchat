@@ -1,6 +1,17 @@
 pipeline {
-    agent any
+   agent any
+        environment {
+        registry = "hazemammani/devopsproject"
+        registryCredential = 'docker'
 
+    NEXUS_VERSION="nexus3"
+	NEXUS_PROTOCOL="http"
+	NEXUS_URL="172.31.176.20:8081"
+	NEXUS_REPOSITORY="achat-release"
+	NEXUS_CREDENTIAL_ID="b43d2453-c886-4f57-967b-55f97c4770c0"
+	dockerImage = ''
+
+    }
     stages {
         stage('Git') {
             steps {
@@ -9,36 +20,76 @@ pipeline {
                  url: 'https://github.com/hazemAm28/TpAchat.git'
             }
         }
-         stage('Mvn clean') {
-            steps {
-                sh 'mvn clean'
-            }
-        }
-         stage('Mvn compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
+
 
          stage('Mvn Junit') {
             steps {
-                echo 'MVN test'
-
+                sh 'mvn test'
             }
         }
+
 
      stage('Mvn sonar') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
-                step([$class: 'JacocoPublisher',
-      execPattern: 'target/*.exec',
-      classPattern: 'target/classes',
-      sourcePattern: 'src/hazem/java',
-      exclusionPattern: 'src/test*'
-        ])
+                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=tpAchatProject -Dsonar.host.url=http://172.31.176.20:9000 -Dsonar.login-admin -Dsonar.password-sonar'
             }
         }
 
+
+    stage('Nexus'){
+        steps{
+            nexusArtifactUploader artifacts: [[artifactId: 'tpAchatProject', classifier: '', file: 'target/tpAchatProject-1.0.jar', type: 'jar']],
+            credentialsId: 'b43d2453-c886-4f57-967b-55f97c4770c0',
+            groupId: 'com.esprit.examen',
+            nexusUrl: '172.31.176.20:8081',
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            repository: 'achat-release',
+            version: '1.0'
+        }
     }
+
+    stage('Building our image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry
+                }
+            }
+        }
+
+        stage('Deploy our image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+       stage('Cleaning up') {
+             steps {
+                 sh "docker rmi $registry:latest"
+             }
+         }
+
+       stage('DockerCompose') {
+
+                       steps {
+
+				sh 'docker-compose up -d'
+                        }
+
+        }
+
+
+        stage('Sending Mail'){
+            steps{
+                mail ( body: 'Congratulations! your DevOps project pipeline was completed succesfully!', subject: 'Pipeline', to: 'hazemammani@gmail.com')
+            }
+        }
+
+
+    }
+
 
 }
