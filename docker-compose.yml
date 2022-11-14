@@ -35,8 +35,6 @@ services:
   front:
     image : asmabesbes/crudtutofront
     restart: on-failure
-    ports: 
-      - "80:80"
     depends_on: 
       - app
 volumes:
