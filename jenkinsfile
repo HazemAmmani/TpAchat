@@ -12,11 +12,7 @@ pipeline {
                  url: 'https://github.com/hazemAm28/TpAchat.git'
            }
         }
-        stage('Running sonar and Nexus containers') {
-            steps {
-                sh 'chmod 666 /var/run/docker.sock'
-            }
-        }
+        
         
         
          stage('Mvn clean') {
