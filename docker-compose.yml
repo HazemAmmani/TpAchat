@@ -21,9 +21,7 @@ services:
       - "80:80"
     depends on:
       - app  
-      
-      
-
+          
   app:
     depends_on:
       - mysqldb
