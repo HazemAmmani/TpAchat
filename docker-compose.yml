@@ -2,14 +2,13 @@ version: "3.8"
 services:
 
   ci-app-front:
-    build:
-      context: .
+
     container_name: ci-angular
     image: hazemammani/frontdevops:latest
     ports:
       - "8888:80"
-    networks:
-      - ci-network
+    depends_on:
+      - app
 
   mysql-db:
     image: mysql:5.7
@@ -52,9 +51,7 @@ services:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     restart: on-failure
 
-networks:
-  ci-network:
-    name: ci-network
+
 
 volumes:
   db:
