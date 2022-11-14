@@ -16,7 +16,11 @@ services:
       
   Front:
     image: atallahdoc/tpachatfront
-    restart: always
+    restart: on-failure
+    prots:
+      - "80:80"
+    depends on:
+      - app  
       
       
 
