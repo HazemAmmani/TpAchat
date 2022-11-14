@@ -32,6 +32,14 @@ services:
       - .m2:/root/.m2
     stdin_open: true
     tty: true
+    
+  frontend:
+    image : fediabdelkebir/tpachatfront
+    restart: on-failure
+    ports:
+      - "4200:80"
+    depends_on: 
+      - app
 
 volumes:
   db:
