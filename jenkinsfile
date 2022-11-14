@@ -19,18 +19,18 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        
+
          stage('Mvn Junit') {
             steps {
                 echo 'MVN test'
-               
+
             }
         }
-         
+
      stage('Mvn sonar') {
             steps {
                 sh 'mvn sonar:sonar -Dsonar.login-admin -Dsonar.password-sonar'
-                step([$class: 'JacocoPublisher', 
+                step([$class: 'JacocoPublisher',
       execPattern: 'target/*.exec',
       classPattern: 'target/classes',
       sourcePattern: 'src/hazem/java',
@@ -38,7 +38,7 @@ pipeline {
         ])
             }
         }
-       
-    }    
-   
+
+    }
+
 }
