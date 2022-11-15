@@ -69,7 +69,7 @@ public class OperateurServiceImplTest {
 	    	assertNotNull(operateur1);
 	    	assertEquals(operateur1, operateurService.updateOperateur(operateur1));
 	    	System.out.println("Update operators works!");
-	    	System.out.println("Update operators works again!");
+	    	System.out.println("Update operators works again!!!");
 	    }
 	    
 	    @Test
